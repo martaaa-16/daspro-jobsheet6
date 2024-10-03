@@ -3,9 +3,9 @@ import java.util.Scanner;
 public class Pemilihan2Percobaan215 {
     public static void main(String[] args) {
         Scanner input15 = new Scanner(System.in);
-        int pilihanMenu;
-        String member;
-        double diskon, harga, totalBayar;
+        int pilihanMenu, jmlBeli = 0, harga = 0, potonganQRIS = 1000;
+        String member, caraPembayaran;
+        double diskon = 0.1, totalBayar = 0;
 
         System.out.println("---------------------------------------");
         System.out.println("=========== MENU CAFE JTI =============");
@@ -14,15 +14,16 @@ public class Pemilihan2Percobaan215 {
         System.out.println("2. Ice Tea");
         System.out.println("3. Paket Bundling (Rice Bowl + Ice Tea)");
         System.out.println("---------------------------------------");
-        System.out.print("masukkan angka dari menu yang dipilih = ");
+        System.out.print("Masukkan angka dari menu yang dipilih = ");
         pilihanMenu = input15.nextInt();
         input15.nextLine();
         System.out.print("Apakah punya member (y/n) ? = ");
         member = input15.nextLine();
+        System.out.println("Masukkan cara pembayaran (Cash/QRIS): ");
+        caraPembayaran = input15.next();
         System.out.println("---------------------------------------");
 
-        if (member.equalsIgnoreCase("y")) {
-            diskon = 0.10;
+        if (member.equals("y")) {
             System.out.println("Besar diskon = 10%");
             if (pilihanMenu == 1) {
                 harga = 14000;
@@ -41,11 +42,16 @@ public class Pemilihan2Percobaan215 {
                 return;
             }
             
-            totalBayar = harga - (harga * diskon);
+            totalBayar = harga - (harga * diskon) * jmlBeli;
+            System.out.println("Menu yang dipilih: " + pilihanMenu);
             System.out.println("Total bayar setelah diskon = " + totalBayar);
+            if (caraPembayaran.equals("QRIS")) {
+                totalBayar -= 1000;
+                System.out.println("Total Bayar Dengan QRIS: " + totalBayar);  
+            }
         }
         
-        else if (member.equalsIgnoreCase("n")) {
+        else if (member.equals("n")) {
             if (pilihanMenu == 1) {
                 harga = 14000;
                 System.out.println("Harga rice bowl = ");
@@ -62,10 +68,14 @@ public class Pemilihan2Percobaan215 {
                 System.out.println("Masukkan pilihan menu dengan benar");
                 return;
             }
+            totalBayar = harga * jmlBeli;
+            System.out.println("Menu yang dipilih: " + pilihanMenu);
             System.out.println("Total bayar = " + harga);
 
-        } else {
-            System.out.println("Member tidak valid");
+        } if (caraPembayaran.equals("QRIS")) {
+            totalBayar -= 1000;
+            System.out.println("Total Bayar Dengan QRIS: " + totalBayar);
+            
         }
         System.out.println("---------------------------------------");
     }
